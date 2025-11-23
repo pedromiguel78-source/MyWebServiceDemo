@@ -2,6 +2,19 @@
 
 header("Content-Type: application/json; charset=utf-8");
 
+$basePath = __DIR__;
+
+// Página inicial
+if ($_SERVER["REQUEST_URI"] === "/" || $_SERVER["REQUEST_URI"] === "/index.php") {
+    $htmlFile = $basePath . "/index.html";
+    if (file_exists($htmlFile)) {
+        readfile($htmlFile);
+    } else {
+        echo "<h1>Ficheiro index.html não encontrado</h1>";
+    }
+    exit;
+}
+
 // /configuration (GET)
 if ($_SERVER["REQUEST_URI"] === "/configuration" && $_SERVER["REQUEST_METHOD"] === "GET") {
     echo json_encode([
@@ -49,15 +62,8 @@ if ($_SERVER["REQUEST_URI"] === "/analyticsRequest" && $_SERVER["REQUEST_METHOD"
     exit;
 }
 
-// Página inicial
-if ($_SERVER["REQUEST_URI"] === "/" || $_SERVER["REQUEST_URI"] === "/index.php") {
-    readfile("index.html");
-    exit;
-}
-
 // Endpoint desconhecido
 echo json_encode([
     "erro" => "O endpoint solicitado não existe.",
     "url" => $_SERVER["REQUEST_URI"]
 ], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
-
