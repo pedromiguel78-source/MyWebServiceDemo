@@ -2,7 +2,7 @@
 
 // Página inicial
 if ($_SERVER["REQUEST_URI"] === "/" || $_SERVER["REQUEST_URI"] === "/index.php") {
-    readfile("home.html");
+    readfile("index.html");
     exit;
 }
 
