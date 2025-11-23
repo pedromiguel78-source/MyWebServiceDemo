@@ -1,11 +1,10 @@
 <?php
 
-header("Content-Type: application/json; charset=utf-8");
-
 $basePath = __DIR__;
 
 // Página inicial
 if ($_SERVER["REQUEST_URI"] === "/" || $_SERVER["REQUEST_URI"] === "/index.php") {
+    header("Content-Type: text/html; charset=utf-8");
     $htmlFile = $basePath . "/index.html";
     if (file_exists($htmlFile)) {
         readfile($htmlFile);
@@ -14,6 +13,9 @@ if ($_SERVER["REQUEST_URI"] === "/" || $_SERVER["REQUEST_URI"] === "/index.php")
     }
     exit;
 }
+
+// Todos os outros endpoints retornam JSON
+header("Content-Type: application/json; charset=utf-8");
 
 // /configuration (GET)
 if ($_SERVER["REQUEST_URI"] === "/configuration" && $_SERVER["REQUEST_METHOD"] === "GET") {
